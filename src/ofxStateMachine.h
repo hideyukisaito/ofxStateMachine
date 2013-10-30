@@ -116,6 +116,11 @@ namespace itg
 				if (currentState) currentState->stateWillChange(name);
 			}
         }
+        
+        void gotMessage(const string& message)
+        {
+            if (currentState) currentState->gotMessage(message);
+        }
 		
 		void changeState(const string& name)
 		{
