@@ -106,6 +106,16 @@ namespace itg
 		{
 			changeState(stateName);
 		}
+        
+        void stateWillChange(const string& name)
+        {
+            stateIt it = states.find(name);
+			if (it == states.end()) ofLog(OF_LOG_ERROR, "No state with name: %s.  Make sure you have added it to the state machine and you have set the state's name correctly.  Set the name by implementing \"const string getName()\" in your state class", name.c_str());
+			else if (it->second != currentState)
+			{
+				if (currentState) currentState->stateWillChange(name);
+			}
+        }
 		
 		void changeState(const string& name)
 		{
@@ -196,6 +206,11 @@ namespace itg
 		void onMousePressed(ofMouseEventArgs& data) { if (currentState) currentState->mousePressed(data.x, data.y, data.button); }
 		void onMouseMoved(ofMouseEventArgs& data) { if (currentState) currentState->mouseMoved(data.x, data.y); }
 		void onMouseDragged(ofMouseEventArgs& data) { if (currentState) currentState->mouseDragged(data.x, data.y, data.button); }
+        
+        string getCurrentStateName()
+        {
+            return currentState->getName();
+        }
 #endif
 		
 	private:

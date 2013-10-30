@@ -53,6 +53,7 @@ namespace itg
 	public:
 		virtual void stateEnter() {}
 		virtual void stateExit() {}
+        virtual void stateWillChange(const string& name) {}
 		virtual void setup() {}
 		virtual void update() {}
 		virtual void draw() {}
