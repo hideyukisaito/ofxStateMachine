@@ -128,9 +128,11 @@ namespace itg
 			if (it == states.end()) ofLog(OF_LOG_ERROR, "No state with name: %s.  Make sure you have added it to the state machine and you have set the state's name correctly.  Set the name by implementing \"const string getName()\" in your state class", name.c_str());
 			else if (it->second != currentState)
 			{
+                disableAppEvents();
 				if (currentState) currentState->stateExit();
 				currentState = it->second;
 				currentState->stateEnter();
+                enableAppEvents();
 			}
 		}
 		
